@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    environment {
+        registry = "arsator/milestone1"
+        registryCredentials = "dockerhub"
+        dockerImage = ""
+    }
+
     stages {
 
         stage ("Checkout") {
@@ -13,6 +19,9 @@ pipeline {
         stage ("Build") {
             steps {
                 echo "Building Stage"
+                scipt {
+                    dockerImage = docker.build registry + "%BUILD_NUMBER"
+                }
             }
         }
 
