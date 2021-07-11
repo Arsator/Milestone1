@@ -1,5 +1,6 @@
 version "3"
-FROM python3.5:alpine
-COPY . /src/
-RUN make /src
-CMD ["python3", "/src/app.py"]
+FROM python3.6:alpine
+WORKDIR user/src/app
+COPY . .
+ENTRYPOINT [ "python3" ]
+CMD [ "app.py" ]
