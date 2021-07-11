@@ -1,11 +1,27 @@
-node{
+pipeline {
+    agent any
+    tools {
+    // a bit ugly because there is no `@Symbol` annotation for the DockerTool
+    // see the discussion about this in PR 77 and PR 52: 
+    // https://github.com/jenkinsci/docker-commons-plugin/pull/77#discussion_r280910822
+    // https://github.com/jenkinsci/docker-commons-plugin/pull/52
+    'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
+  }
+  environment {
+    DOCKER_CERT_PATH = credentials('id-for-a-docker-cred')
+  }
 
-    stage("Git Checkout") {
-        git 'https://github.com/Arsator/Milestone1'
-    }
+  stages {
+      stage("Git Checkout") {
+          steps {
+              git "https://github.com/Arsator/Milestone1"
+          }
+      }
 
-    stage("Building Image") {
-        sh "docker build -t arsator/milestone1:1.0 ."
-    }
-
+      stage("Build Image") {
+          steps {
+              sh "docker version"
+          }
+      }
+  }
 }
