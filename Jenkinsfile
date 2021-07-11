@@ -9,7 +9,9 @@ pipeline {
 
       stage("Build Image") {
           steps {
-              docker.build 'milestone1:1.1'
+              script{
+                  docker.build 'milestone1:1.1'
+              }
           }
       }
   }
