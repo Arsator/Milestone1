@@ -3,22 +3,28 @@ pipeline {
 
     stages {
 
-        stage("Checkout") {
+        stage ("Checkout") {
             steps {
                 echo "Checking out file from Github"
             }
         }
 
-        stage("Build") {
-            echo "Building Stage"
+        stage ("Build") {
+            steps {
+                echo "Building Stage"
+            }
         }
 
-        stage("Test") {
-            echo "Testing Stage"
+        stage ("Test") {
+            steps {
+                echo "Testing Stage"
+            }
         }
 
-        stage("Deploy") {
-            echo "Deloyment Stage"
+        stage ("Deploy") {
+            steps {
+                echo "Deployment Stage"
+            }
         }
     }
 }
