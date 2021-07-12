@@ -10,7 +10,7 @@ pipeline {
       stage("Build Image") {
           steps {
               script{
-                  sh 'docker build -t Milestone1:1.0'
+                  sh 'docker build -t Arsator/Milestone1:1.0 .'
               }
           }
       }
