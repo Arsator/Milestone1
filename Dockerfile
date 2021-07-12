@@ -1,4 +1,4 @@
-version "3"
+version: "3"
 FROM python3.6:alpine
 WORKDIR user/src/app
 COPY . .
