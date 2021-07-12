@@ -14,5 +14,13 @@ pipeline {
               }
           }
       }
+
+      stage("Run Image") {
+          steps {
+              script {
+                  sh 'docker run -d arsator/milestone1:1.0'
+              }
+          }
+      }
   }
 }
