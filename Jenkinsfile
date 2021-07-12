@@ -18,7 +18,7 @@ pipeline {
       stage("Run Image") {
           steps {
               script {
-                  sh 'docker run -it arsator/milestone1:1.0 app.py'
+                  sh 'docker run arsator/milestone1:1.0 app.py'
               }
           }
       }
