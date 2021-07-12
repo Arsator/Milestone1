@@ -1,5 +1,5 @@
-FROM python3.6:alpine
-WORKDIR user/src/app
+FROM python:3
+WORKDIR /usr/src/app
 COPY . .
 ENTRYPOINT [ "python3" ]
 CMD [ "app.py" ]
