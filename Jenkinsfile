@@ -33,7 +33,7 @@ pipeline {
 
       stage("Build Image") {
           steps {
-              sh '/bin/docker build -t arsator/milestone1:$BUILD_NUMBER .'
+              docker.build("arsator/milestone1:$BUILD_VERSION")
           }
       }
   }
