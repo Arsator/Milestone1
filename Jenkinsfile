@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         registryId = "Docker_hub_id"
+        registryUrl = "https://registry.hub.docker.com"
         imageName = 'arsator/milestone1:1.0'
         dockerImage = ''
     }
@@ -50,7 +51,7 @@ pipeline {
       stage("Deploy Image") {
           steps {
               script {
-                  docker.withRegistry('', registryId) {
+                  docker.withRegistry(registryUrl, registryId) {
                       dockerImage.push()
                   }
               }
