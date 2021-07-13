@@ -32,8 +32,10 @@ pipeline {
       }
 
       stage("Build Image") {
+          agent any
+
           steps {
-              docker.build("arsator/milestone1:$BUILD_VERSION")
+              sh 'docker build -t arsator/milestone1:$BUILD_VERSION .'
           }
       }
   }
