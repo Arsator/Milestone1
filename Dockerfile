@@ -1,5 +1,7 @@
-FROM python:3
-WORKDIR /usr/src/app
-COPY . .
-ENTRYPOINT [ "python3" ]
-CMD [ "app.py" ]
+FROM java:openjdk-8-jre-alpine
+
+WORKDIR /home
+
+COPY target/*.jar /home
+
+ENTRYPOINT ["java", "-jar", "*.jar"]

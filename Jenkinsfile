@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.8.1-adoptopenjdk-11'
+            args '-v /root/.me:/root/.m2'
+        }
+    }
   stages {
       stage("Git Checkout") {
           steps {
@@ -7,19 +12,27 @@ pipeline {
           }
       }
 
-      stage("Build Image") {
+      stage("Unit Test") {
           steps {
-              script{
-                  sh 'docker build -t arsator/milestone1:1.0 .'
+              sh 'mvn test'
+          }
+
+          post {
+              always {
+                  junit 'target/surefire-reports/*.xml'
               }
           }
       }
 
-      stage("Run Image") {
+      stage("Build") {
           steps {
-              script {
-                  sh 'docker run arsator/milestone1:1.0 app.py'
-              }
+              sh 'mvn -B -DskipTests clean package'
+          }
+      }
+
+      stage("Build Image") {
+          steps {
+              sh 'docker build -t arsator/milestone1:$BUILD_NUMBER .'
           }
       }
   }
