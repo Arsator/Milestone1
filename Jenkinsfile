@@ -5,17 +5,10 @@ pipeline {
             args '-v /root/.me:/root/.m2'
         }
     }
-  stages {
+     stages {
       stage("Git Checkout") {
           steps {
               git "https://github.com/Arsator/Milestone1"
-          }
-      }
-
-
-      stage("Build") {
-          steps {
-              sh 'mvn -B -DskipTests clean package'
           }
       }
 
@@ -26,10 +19,17 @@ pipeline {
 
           post {
               always {
-                  junit '**/surefire-reports/*.xml'
+                  junit 'target/surefire-reports/*.xml'
               }
           }
       }
+
+      stage("Build") {
+          steps {
+              sh 'mvn -B -DskipTests clean package'
+          }
+      }
+
 
       stage("Build Image") {
           steps {
