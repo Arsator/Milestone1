@@ -1,1 +1,0 @@
-This is a pipeline which builds docker image and pushes it into dockerhub.
