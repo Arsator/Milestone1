@@ -1,26 +1,20 @@
 pipeline {
-    agent none
+    agent any
      stages {
-      stage("Build") {
-          agent {
-              docker {
-                  image 'maven:3.8.1-adoptopenjdk-11'
-                  args '-v /root/.me:/root/.m2'
-              }
+      stage("Git Checkout") {
+          steps {
+              git "https://github.com/Arsator/Milestone1"
           }
+      }
+
+
+      stage("Build") {
           steps {
               sh 'mvn -B -DskipTests clean package'
           }
       }
 
       stage("Unit Test") {
-          agent {
-              docker {
-                  image 'maven:3.8.1-adoptopenjdk-11'
-                  args '-v /root/.me:/root/.m2'
-              }
-          }
-
           steps {
               sh 'mvn test'
           }
@@ -33,10 +27,8 @@ pipeline {
       }
 
       stage("Build Image") {
-          agent any
-
           steps {
-              sh 'docker build -t arsator/milestone1:$BUILD_VERSION .'
+              sh 'docker build -t arsator/milestone1:$BUILD_NUMBER .'
           }
       }
   }
