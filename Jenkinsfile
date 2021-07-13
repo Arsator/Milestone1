@@ -1,5 +1,12 @@
 pipeline {
     agent any
+
+    environment {
+        registryId = "Docker_hub_id"
+        imageName = 'arsator/milestone1:1.0'
+        dockerImage = ''
+    }
+
      stages {
       stage("Git Checkout") {
           steps {
@@ -28,13 +35,37 @@ pipeline {
 
       stage("Build Image") {
           steps {
-              sh 'docker build -t arsator/milestone1:$BUILD_NUMBER .'
+              script {
+                  dockerImage = docker.build imageName
+              }
           }
 
           post {
               success {
                   sh 'echo Image built successfully.'
               }
+          }
+      }
+
+      stage("Deploy Image") {
+          steps {
+              script {
+                  docker.withRegistry('', registryId) {
+                      dockerImage.push()
+                  }
+              }
+          }
+
+          post {
+              success {
+                  sh 'echo deployed success.'
+              }
+          }
+      }
+
+      stage("Remove Image") {
+          steps {
+              sh 'docker rmi $imageName'
           }
       }
   }
