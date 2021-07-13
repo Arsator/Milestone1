@@ -12,6 +12,13 @@ pipeline {
           }
       }
 
+
+      stage("Build") {
+          steps {
+              sh 'mvn -B -DskipTests clean package'
+          }
+      }
+
       stage("Unit Test") {
           steps {
               sh 'mvn test'
@@ -23,13 +30,7 @@ pipeline {
               }
           }
       }
-
-      stage("Build") {
-          steps {
-              sh 'mvn -B -DskipTests clean package'
-          }
-      }
-
+      
       stage("Build Image") {
           steps {
               sh 'docker build -t arsator/milestone1:$BUILD_NUMBER .'
