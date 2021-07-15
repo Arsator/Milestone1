@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'ec2-general-worker-node'
+    }
 
     environment {
         registryId = "Docker_hub_id"
